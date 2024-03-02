@@ -8,7 +8,7 @@ const ExampleComponent = () => {
         <div>
             {
                 session.data && (
-                    <p>{session.data.user?.name}</p>
+                    <p>{JSON.stringify(session.data.user)}</p>
                 )
             }
         </div>
