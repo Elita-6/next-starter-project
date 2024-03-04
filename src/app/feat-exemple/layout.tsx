@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from 'react';
 
-const ExampleLayout = ({ children }: PropsWithChildren) => {
+export  default function  ExampleLayout ({ children }: PropsWithChildren) {
     return (
         <div>
             {children}
@@ -8,4 +8,3 @@ const ExampleLayout = ({ children }: PropsWithChildren) => {
     );
 };
 
-export default ExampleLayout;
