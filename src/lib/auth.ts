@@ -52,7 +52,8 @@ export const handlers= NextAuth({
                 firstName:user.name,
                 id:user.id,
                 email:user.email,
-                lastName:user.name
+                lastName:user.name,
+                typeProvider:account?.provider
             })
         }
     }
