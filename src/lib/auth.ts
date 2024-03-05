@@ -9,13 +9,16 @@ export const handlers= NextAuth({
     providers: [
         GitHubProvider({
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-            clientId: process.env.GITHUB_CLIENT_ID as string
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            id:"github"
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            id:"google"
         }),
         CredentialsProvider({
+            id:"credentials",
             name:"Credentials",
             credentials:{
                 username: {
@@ -39,4 +42,7 @@ export const handlers= NextAuth({
             }
         })
     ],
+    pages: {
+        signIn: "/signin",
+    },
 })
