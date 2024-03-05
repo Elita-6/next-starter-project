@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import axios from "axios";
 
 export const handlers= NextAuth({
     //todo: separate this in auth.config file
@@ -9,13 +10,16 @@ export const handlers= NextAuth({
     providers: [
         GitHubProvider({
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-            clientId: process.env.GITHUB_CLIENT_ID as string
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            id:"github"
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            id:"google"
         }),
         CredentialsProvider({
+            id:"credentials",
             name:"Credentials",
             credentials:{
                 username: {
@@ -39,4 +43,18 @@ export const handlers= NextAuth({
             }
         })
     ],
+    pages: {
+        signIn: "/signin",
+    },
+    callbacks:{
+        async signIn({ user, account, profile, email, credentials}){
+            return await axios.post("https://devhunt-starter-api-production.up.railway.app/api/utilisateur",{
+                firstName:user.name,
+                id:user.id,
+                email:user.email,
+                lastName:user.name,
+                typeProvider:account?.provider
+            })
+        }
+    }
 })
