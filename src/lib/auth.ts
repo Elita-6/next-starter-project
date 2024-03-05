@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import axios from "axios";
 
 export const handlers= NextAuth({
     //todo: separate this in auth.config file
@@ -47,7 +48,7 @@ export const handlers= NextAuth({
     },
     callbacks:{
         async signIn({ user, account, profile, email, credentials}){
-            return true
+            return await axios.post("https://devhunt-starter-api-production.up.railway.app/api/utilisateur",user)
         }
     }
 })
