@@ -48,13 +48,18 @@ export const handlers= NextAuth({
     },
     callbacks:{
         async signIn({ user, account, profile, email, credentials}){
-            return await axios.post("https://devhunt-starter-api-production.up.railway.app/api/utilisateur",{
+            const test = await axios.post("https://devhunt-starter-api-production.up.railway.app/api/utilisateur",{
                 firstName:user.name,
                 id:user.id,
                 email:user.email,
                 lastName:user.name,
                 typeProvider:account?.provider
             })
+            if (test.status == 200){
+                console.log("test")
+                console.log(test.data)
+            }
+            return true
         }
     }
 })
